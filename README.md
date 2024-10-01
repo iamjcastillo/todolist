@@ -14,6 +14,10 @@ Pull the Postgres image from Docker:
 docker pull postgres
 ```
 
+### Install requirements:
+```
+poetry install
+```
 
 ### Initialize Alembic:
 Generate migration files:
