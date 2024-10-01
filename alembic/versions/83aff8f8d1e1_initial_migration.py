@@ -1,4 +1,4 @@
-"""your_migration_message
+"""initial_migration
 
 Revision ID: 83aff8f8d1e1
 Revises: 
