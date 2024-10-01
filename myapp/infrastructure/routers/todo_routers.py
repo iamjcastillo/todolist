@@ -5,8 +5,7 @@ from pydantic import BaseModel
 
 from myapp.application.services.todo_service import ToDoService
 from myapp.domain.criteria import ToDoCriteria, ToDoListWithTasksCriteria
-from myapp.domain.todo import ToDoListCreationRequest, TaskCreationRequest, Task, ToDoList
-from myapp.infrastructure.repositories.to_do_repository import ToDoRepository
+from myapp.domain.todo import ToDoListCreationRequest, ToDoList
 from myapp.infrastructure.db.database import DBSessionDependency, db_session
 
 router = APIRouter()
