@@ -1,12 +1,18 @@
-from myapp.domain.todo import ToDoList
+import uuid
+
+from myapp.domain.todo import ToDoList, ToDoListFactory
 from myapp.infrastructure.db.database import db_session
 from myapp.infrastructure.db.models import ToDoDB
 
 
 class ToDoDataSource:  # Improvement. Use DTOs instead of domain objects
-    def get(self) -> ToDoList:
+    def get(self, id: uuid.UUID) -> ToDoList:
         db = db_session.get()
-        return [ToDoList(id=i.id, category=i.category, tasks=[]) for i in db.query(ToDoDB).all()]
+        query = db.query(ToDoDB).filter(ToDoDB.id == id)
+        todo = query.one_or_none()
+        if todo:
+            return ToDoListFactory.create(id=todo.id, category=todo.category)
+        return None
 
     def create(self, todo: ToDoDB) -> ToDoList:
         db = db_session.get()

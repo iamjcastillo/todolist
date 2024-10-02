@@ -1,6 +1,5 @@
-from myapp.domain.criteria import Criteria, ToDoCriteria
-from myapp.domain.todo import ToDoList
 from myapp.domain.task import Task
+from myapp.domain.todo import ToDoList, ToDoListFactory
 from myapp.infrastructure.datasources.tasks_data_source import TasksDataSource
 from myapp.infrastructure.datasources.todo_data_source import ToDoDataSource
 
@@ -14,15 +13,15 @@ class ToDoRepository:
         saved_todo = self.todo_data_source.create(todo)
         saved_tasks = [
             self.task_data_source.create(
-                Task(id=task.id, todo_id=saved_todo.id, title=task.title, description=task.description, state=task.state)
+                Task(id=task.id, todo_id=saved_todo.id, title=task.title, description=task.description,
+                     state=task.state)
             )
             for task in todo.tasks
         ]
 
         return ToDoList(id=saved_todo.id, category=saved_todo.category, tasks=saved_tasks)
 
-    def get(self, criteria: Criteria) -> ToDoList:
-        if isinstance(criteria, ToDoCriteria):
-            return self.todo_data_source.get()
-        else:
-            raise NotImplementedError()
+    def get(self, id) -> ToDoList:
+        todo = self.todo_data_source.get(id=id)
+        tasks = self.task_data_source.get(to_do_id=id)
+        return ToDoListFactory.create(id=todo.id, category=todo.category, tasks=tasks)
