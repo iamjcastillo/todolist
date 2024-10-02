@@ -17,12 +17,15 @@ class Task(BaseModel):
     state: State
     todo_id: Optional[ToDoID]
 
-    @classmethod
-    def create(cls, title: Title, description: Description, state: State, todo_id: ToDoID) -> 'Task':
-        return cls(id=None, title=title, description=description, state=state, todo_id=todo_id)
-
     def mark_as_completed(self):
         self.state = "COMPLETED"
+
+
+class TaskFactory:
+    @staticmethod
+    def create(title: Title, description: Description, state: State, todo_id: Optional[ToDoID] = None,
+               id: Optional[TaskID] = None) -> 'Task':
+        return Task(id=id, title=title, description=description, state=state, todo_id=todo_id)
 
 
 class TaskCreationRequest(BaseModel):

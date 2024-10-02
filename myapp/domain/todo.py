@@ -13,12 +13,14 @@ class ToDoList(BaseModel):
     tasks: List[Task]
     category: Category
 
-    @classmethod
-    def create(cls, category: Category) -> 'ToDoList':
-        return cls(id=None, category=category, tasks=[])
-
     def add_task(self, task: Task):
         self.tasks.append(task)
+
+
+class ToDoListFactory:
+    @staticmethod
+    def create(category: Category, tasks: Optional[List[Task]] = [], id: Optional[ToDoID] = None) -> 'ToDoList':
+        return ToDoList(id=id, category=category, tasks=tasks)
 
 
 class ToDoListCreationRequest(BaseModel):
