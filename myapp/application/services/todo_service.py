@@ -1,5 +1,6 @@
 from myapp.domain.criteria import Criteria
-from myapp.domain.todo import ToDoList, ToDoListCreationRequest, Task
+from myapp.domain.todo import ToDoList, ToDoListCreationRequest
+from myapp.domain.task import Task
 from myapp.infrastructure.repositories.to_do_repository import ToDoRepository
 
 

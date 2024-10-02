@@ -1,5 +1,6 @@
 from myapp.domain.criteria import Criteria, ToDoCriteria
-from myapp.domain.todo import ToDoList, Task
+from myapp.domain.todo import ToDoList
+from myapp.domain.task import Task
 from myapp.infrastructure.datasources.tasks_data_source import TasksDataSource
 from myapp.infrastructure.datasources.todo_data_source import ToDoDataSource
 

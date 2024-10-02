@@ -1,4 +1,4 @@
-from myapp.domain.todo import Task
+from myapp.domain.task import Task
 from myapp.infrastructure.db.database import db_session
 from myapp.infrastructure.db.models import TaskDB
 
