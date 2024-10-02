@@ -1,5 +1,6 @@
 import uuid
 
+from myapp.domain.exceptions import ToDoListNotFoundException
 from myapp.domain.todo import ToDoList, ToDoListFactory
 from myapp.infrastructure.db.database import db_session
 from myapp.infrastructure.db.models import ToDoDB
@@ -10,9 +11,9 @@ class ToDoDataSource:  # Improvement. Use DTOs instead of domain objects
         db = db_session.get()
         query = db.query(ToDoDB).filter(ToDoDB.id == id)
         todo = query.one_or_none()
-        if todo:
-            return ToDoListFactory.create(id=todo.id, category=todo.category)
-        return None
+        if not todo:
+            raise ToDoListNotFoundException()
+        return ToDoListFactory.create(id=todo.id, category=todo.category)
 
     def create(self, todo: ToDoDB) -> ToDoList:
         db = db_session.get()
