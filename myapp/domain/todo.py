@@ -2,10 +2,10 @@ from typing import NewType, List, Optional
 
 from pydantic import BaseModel
 
+from myapp.domain.kernel import ToDoID
 from myapp.domain.task import Task, TaskCreationRequest
 
 Category = NewType("Category", str)
-ToDoID = NewType("ToDoId", int)
 
 
 class ToDoList(BaseModel):

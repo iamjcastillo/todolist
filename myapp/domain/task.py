@@ -3,7 +3,7 @@ from typing import Optional, NewType
 from pydantic import BaseModel
 
 from myapp.domain.exceptions import TitleTooLongException
-from myapp.domain.todo import ToDoID
+from myapp.domain.kernel import ToDoID
 
 Title = NewType("Title", str)
 Description = NewType("Description", str)
