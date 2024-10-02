@@ -3,7 +3,7 @@ from typing import NewType, List, Optional
 from pydantic import BaseModel
 
 from myapp.domain.kernel import ToDoID
-from myapp.domain.task import Task, TaskCreationRequest
+from myapp.domain.task import Task, TaskCreationRequest, TaskID
 
 Category = NewType("Category", str)
 
@@ -15,6 +15,12 @@ class ToDoList(BaseModel):
 
     def add_task(self, task: Task):
         self.tasks.append(task)
+
+    def remove_task(self, task_id: TaskID):
+        for task in self.tasks:
+            if task.id == task_id:
+                self.tasks.remove(task)
+                return
 
 
 class ToDoListFactory:
