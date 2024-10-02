@@ -1,5 +1,6 @@
 from myapp.domain.criteria import Criteria
-from myapp.domain.todo import ToDoList, ToDoListCreationRequest, Task
+from myapp.domain.task import TaskFactory
+from myapp.domain.todo import ToDoList, ToDoListCreationRequest, ToDoListFactory
 from myapp.infrastructure.repositories.to_do_repository import ToDoRepository
 
 
@@ -8,10 +9,10 @@ class ToDoService:
         self.todo_repository = ToDoRepository()
 
     def create(self, request: ToDoListCreationRequest) -> ToDoList:
-        todo_list = ToDoList.create(category=request.category)
+        todo_list = ToDoListFactory.create(category=request.category)
 
         for task_data in request.tasks:
-            task = Task.create(
+            task = TaskFactory.create(
                 title=task_data.title,
                 description=task_data.description,
                 state=task_data.state,
