@@ -1,4 +1,4 @@
-from myapp.domain.criteria import Criteria
+from myapp.domain.kernel import ToDoID
 from myapp.domain.task import TaskFactory
 from myapp.domain.todo import ToDoList, ToDoListCreationRequest, ToDoListFactory
 from myapp.infrastructure.repositories.to_do_repository import ToDoRepository
@@ -22,5 +22,5 @@ class ToDoService:
 
         return self.todo_repository.create(todo_list)
 
-    def get(self, criteria: Criteria) -> ToDoList:
-        return self.todo_repository.get(criteria)
+    def get(self, id: ToDoID) -> ToDoList:
+        return self.todo_repository.get(id=id)

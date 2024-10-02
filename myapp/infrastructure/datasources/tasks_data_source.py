@@ -1,14 +1,17 @@
+import uuid
+
 from myapp.domain.task import Task
 from myapp.infrastructure.db.database import db_session
 from myapp.infrastructure.db.models import TaskDB
 
 
 class TasksDataSource:
-    def get(self):
+    def get(self, to_do_id: uuid.UUID):
         db = db_session.get()
+        query = db.query(TaskDB).filter(TaskDB.todo_id == to_do_id)
         return [
             Task(title=data.title, description=data.description, state=data.state, id=data.id, todo_id=data.todo_id)
-            for data in db.query(TaskDB).all()
+            for data in query.all()
         ]
 
     def create(self, item: Task):

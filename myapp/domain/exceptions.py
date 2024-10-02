@@ -1,2 +1,6 @@
 class TitleTooLongException(Exception):
     ...
+
+
+class ToDoListNotFoundException(Exception):
+    ...
