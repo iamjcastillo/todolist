@@ -23,6 +23,9 @@ class Task(BaseModel):
     def update_title(self, title: Title):
         self.title = title
 
+    def update_description(self, description: Description):
+        self.description = description
+
 
 class TaskFactory:
     @staticmethod

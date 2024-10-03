@@ -4,7 +4,7 @@ from typing import List
 from pydantic import BaseModel
 
 from myapp.domain.kernel import ToDoID
-from myapp.domain.task import TaskID, TaskCreationRequest
+from myapp.domain.task import TaskID, TaskCreationRequest, Description
 from myapp.domain.title import Title
 from myapp.domain.todo import Category
 
@@ -37,3 +37,4 @@ class UpdateTask(Command):
     todo_id: ToDoID
     task_id: TaskID
     title: Title
+    description: Description

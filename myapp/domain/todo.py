@@ -3,7 +3,7 @@ from typing import NewType, List, Optional
 from pydantic import BaseModel
 
 from myapp.domain.kernel import ToDoID
-from myapp.domain.task import Task, TaskID
+from myapp.domain.task import Task, TaskID, Description
 from myapp.domain.title import Title
 
 Category = NewType("Category", str)
@@ -29,11 +29,16 @@ class ToDoList(BaseModel):
     def get_removed_tasks(self) -> List[Task]:
         return self._removed_tasks
 
-    def update_task(self, task_id: TaskID, title: Title):
+    def get_task(self, task_id: TaskID):
         for task in self.tasks:
             if task.id == task_id:
-                task.update_title(title)
-                self._updated_tasks.append(task)
+                return task
+
+    def update_task(self, task_id: TaskID, title: Title, description: Description):
+        task = self.get_task(task_id=task_id)
+        task.update_title(title)
+        task.update_description(description)
+        self._updated_tasks.append(task)
 
     def get_updated_tasks(self) -> List[Task]:
         return self._updated_tasks

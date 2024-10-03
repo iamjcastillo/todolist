@@ -6,7 +6,7 @@ from pydantic import BaseModel
 from myapp.application.commands.command_handler import DeleteTask, GetToDoList, CreateToDoList, UpdateTask
 from myapp.application.services.todo_service import ToDoService
 from myapp.domain.kernel import ToDoID
-from myapp.domain.task import TaskID
+from myapp.domain.task import TaskID, Description
 from myapp.domain.title import Title
 from myapp.domain.todo import ToDoList
 from myapp.infrastructure.db.database import DBSessionDependency, db_session
@@ -18,6 +18,11 @@ T = TypeVar("T")
 
 class ReturnList(BaseModel, Generic[T]):
     items: List[T]
+
+
+class TaskUpdateRequestDTO(BaseModel):
+    title: Title
+    description: Description
 
 
 @router.get("/health", tags=["Health"])
@@ -44,6 +49,8 @@ async def delete_task(id: ToDoID, task_id: TaskID, db: DBSessionDependency) -> T
 
 
 @router.patch("/lists/{id}/tasks/{task-id}", tags=["Tasks"])
-async def update_task(id: ToDoID, task_id: TaskID, title: str, db: DBSessionDependency) -> ToDoList:
+async def update_task(id: ToDoID, task_id: TaskID, request: TaskUpdateRequestDTO, db: DBSessionDependency) -> ToDoList:
     db_session.set(db)
-    return ToDoService().execute(command=UpdateTask(task_id=task_id, todo_id=id, title=Title(title)))
+    return ToDoService().execute(
+        command=UpdateTask(task_id=task_id, todo_id=id, title=request.title, description=request.description)
+    )
