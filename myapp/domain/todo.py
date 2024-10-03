@@ -24,7 +24,7 @@ class ToDoList(BaseModel):
                 self._removed_tasks.append(task)
                 return
 
-    def get_removed_tasks(self):
+    def get_removed_tasks(self) -> List[Task]:
         return self._removed_tasks
 
 
