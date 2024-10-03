@@ -1,9 +1,11 @@
 from abc import abstractmethod
+from typing import List
 
 from pydantic import BaseModel
 
 from myapp.domain.kernel import ToDoID
-from myapp.domain.task import TaskID
+from myapp.domain.task import TaskID, TaskCreationRequest
+from myapp.domain.todo import Category
 
 
 class Command(BaseModel):
@@ -23,3 +25,8 @@ class DeleteTask(Command):
 
 class GetToDoList(Command):
     todo_id: ToDoID
+
+
+class CreateToDoList(Command):
+    tasks: List[TaskCreationRequest]
+    category: Category

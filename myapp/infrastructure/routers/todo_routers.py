@@ -3,11 +3,11 @@ from typing import List, TypeVar, Generic
 from fastapi import APIRouter
 from pydantic import BaseModel
 
-from myapp.application.commands.command_handler import DeleteTask, GetToDoList
+from myapp.application.commands.command_handler import DeleteTask, GetToDoList, CreateToDoList
 from myapp.application.services.todo_service import ToDoService
 from myapp.domain.kernel import ToDoID
 from myapp.domain.task import TaskID
-from myapp.domain.todo import ToDoListCreationRequest, ToDoList
+from myapp.domain.todo import ToDoList
 from myapp.infrastructure.db.database import DBSessionDependency, db_session
 
 router = APIRouter()
@@ -25,9 +25,9 @@ async def health():
 
 
 @router.post("/lists", tags=["ToDo"])
-async def create_todo_list(todo: ToDoListCreationRequest, db: DBSessionDependency) -> ToDoList:
+async def create_todo_list(todo: CreateToDoList, db: DBSessionDependency) -> ToDoList:
     db_session.set(db)
-    return ToDoService().create(todo)
+    return ToDoService().execute(command=todo)
 
 
 @router.get("/lists/{id}", tags=["ToDo"])
