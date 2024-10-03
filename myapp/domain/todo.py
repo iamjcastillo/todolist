@@ -3,7 +3,7 @@ from typing import NewType, List, Optional
 from pydantic import BaseModel
 
 from myapp.domain.kernel import ToDoID
-from myapp.domain.task import Task, TaskCreationRequest, TaskID
+from myapp.domain.task import Task, TaskID
 
 Category = NewType("Category", str)
 
@@ -32,8 +32,3 @@ class ToDoListFactory:
     @staticmethod
     def create(category: Category, tasks: Optional[List[Task]] = [], id: Optional[ToDoID] = None) -> 'ToDoList':
         return ToDoList(id=id, category=category, tasks=tasks)
-
-
-class ToDoListCreationRequest(BaseModel):
-    tasks: List[TaskCreationRequest]
-    category: Category

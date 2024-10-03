@@ -8,8 +8,8 @@ class TasksDataSource:
         db = db_session.get()
         query = db.query(TaskDB).filter(TaskDB.todo_id == to_do_id)
         return [
-            Task(title=data.title, description=data.description, state=data.state, id=data.id, todo_id=data.todo_id)
-            for data in query.all()
+            Task(title=task_db.title, description=task_db.description, state=task_db.state, id=task_db.id, todo_id=task_db.todo_id)
+            for task_db in query.all()
         ]
 
     def create(self, item: Task):

@@ -5,9 +5,9 @@ from myapp.infrastructure.datasources.todo_data_source import ToDoDataSource
 
 
 class ToDoRepository:
-    def __init__(self):
-        self.todo_data_source = ToDoDataSource()
-        self.task_data_source = TasksDataSource()
+    def __init__(self, todo_data_source=ToDoDataSource(), task_data_source=TasksDataSource()):
+        self.todo_data_source = todo_data_source
+        self.task_data_source = task_data_source
 
     def create(self, todo: ToDoList) -> ToDoList:
         saved_todo = self.todo_data_source.create(todo)
