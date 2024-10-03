@@ -5,7 +5,7 @@ from myapp.application.commands.get_todo_list_command_handler import GetToDoList
 
 
 class CommandHandlerFactory:
-    def get(self, command: Command):
+    def get_handler(self, command: Command):
         if isinstance(command, DeleteTask):
             return DeleteTaskCommandHandler()
         if isinstance(command, GetToDoList):
