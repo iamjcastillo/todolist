@@ -27,12 +27,16 @@ class ToDoRepository:
         return ToDoListFactory.create(id=todo.id, category=todo.category, tasks=tasks)
 
     def update(self, todo: ToDoList) -> ToDoList:
-        return self._delete_tasks(todo)
+        self._delete_tasks(todo)
+        self._update_tasks(todo)
+        return self.get(todo.id)
 
-    def _delete_tasks(self, todo: ToDoList) -> ToDoList:
+    def _delete_tasks(self, todo: ToDoList):
         tasks_to_delete = todo.get_removed_tasks()
-
         for task in tasks_to_delete:
             self.task_data_source.delete(task_id=task.id)
 
-        return todo
+    def _update_tasks(self, todo: ToDoList):
+        tasks_to_update = todo.get_updated_tasks()
+        for task in tasks_to_update:
+            self.task_data_source.update(task)
