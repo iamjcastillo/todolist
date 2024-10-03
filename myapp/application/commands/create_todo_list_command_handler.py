@@ -5,8 +5,8 @@ from myapp.infrastructure.repositories.to_do_repository import ToDoRepository
 
 
 class CreateToDoListCommandHandler:
-    def __init__(self):
-        self.todo_repository = ToDoRepository()
+    def __init__(self, todo_repository=ToDoRepository()):
+        self.todo_repository = todo_repository
 
     def handle(self, command: CreateToDoList) -> ToDoList:
         todo_list = ToDoListFactory.create(category=command.category)
