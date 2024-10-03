@@ -9,5 +9,5 @@ class UpdateTaskCommandHandler:
 
     def handle(self, command: UpdateTask) -> ToDoList:
         todo_list = self.todo_repository.get(id=command.todo_id)
-        todo_list.update_task(task_id=command.task_id, title=command.title)
+        todo_list.update_task(task_id=command.task_id, title=command.title, description=command.description)
         return self.todo_repository.update(todo_list)
