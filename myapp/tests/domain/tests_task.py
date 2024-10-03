@@ -19,3 +19,11 @@ class TaskTestCase(unittest.TestCase):
         task.mark_as_completed()
 
         self.assertEqual("COMPLETED", task.state)
+
+    def test_given_task_when_updating_title_then_it_is_updated(self):
+        task = TaskFactory.create(title="title", description="description", state="state", todo_id=1)
+        updated_title = Title("Updated title")
+
+        task.update_title(updated_title)
+
+        self.assertEqual(updated_title, task.title)

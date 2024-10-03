@@ -1,6 +1,7 @@
 import unittest
 
 from myapp.domain.task import TaskFactory
+from myapp.domain.title import Title
 from myapp.domain.todo import ToDoListFactory
 
 
@@ -30,3 +31,13 @@ class ToDoTestCase(unittest.TestCase):
 
         self.assertEqual(0, len(todo.tasks))
         self.assertEqual([task], todo.get_removed_tasks())
+
+    def test_given_todo_when_updating_task_then_it_is_updated(self):
+        todo = ToDoListFactory.create(category="test", tasks=[])
+        task_id = 1
+        task = TaskFactory.create(title="title", description="description", state="state", todo_id=1, id=task_id)
+        todo.add_task(task=task)
+
+        todo.update_task(task_id=task_id, title=Title("testing"))
+
+        self.assertEqual("testing", todo.tasks[0].title.root)

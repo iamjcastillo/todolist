@@ -20,6 +20,9 @@ class Task(BaseModel):
     def mark_as_completed(self):
         self.state = "COMPLETED"
 
+    def update_title(self, title: Title):
+        self.title = title
+
 
 class TaskFactory:
     @staticmethod
