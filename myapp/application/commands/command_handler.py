@@ -19,3 +19,7 @@ class CommandHandler:
 class DeleteTask(Command):
     todo_id: ToDoID
     task_id: TaskID
+
+
+class GetToDoList(Command):
+    todo_id: ToDoID

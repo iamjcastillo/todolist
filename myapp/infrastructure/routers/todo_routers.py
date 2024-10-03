@@ -3,7 +3,7 @@ from typing import List, TypeVar, Generic
 from fastapi import APIRouter
 from pydantic import BaseModel
 
-from myapp.application.commands.command_handler import DeleteTask
+from myapp.application.commands.command_handler import DeleteTask, GetToDoList
 from myapp.application.services.todo_service import ToDoService
 from myapp.domain.kernel import ToDoID
 from myapp.domain.task import TaskID
@@ -33,7 +33,7 @@ async def create_todo_list(todo: ToDoListCreationRequest, db: DBSessionDependenc
 @router.get("/lists/{id}", tags=["ToDo"])
 async def get_todo_list(id: ToDoID, db: DBSessionDependency) -> ToDoList:
     db_session.set(db)
-    return ToDoService().get(id=id)
+    return ToDoService().execute(command=GetToDoList(todo_id=id))
 
 
 @router.delete("/lists/{id}/tasks/{task-id}", tags=["Tasks"])

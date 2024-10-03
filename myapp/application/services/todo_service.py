@@ -24,9 +24,6 @@ class ToDoService:
 
         return self.todo_repository.create(todo_list)
 
-    def get(self, id: ToDoID) -> ToDoList:
-        return self.todo_repository.get(id=id)
-
     def execute(self, command: Command) -> ToDoList:
         handler = CommandHandlerFactory().get(command)
         return handler.handle(command)
