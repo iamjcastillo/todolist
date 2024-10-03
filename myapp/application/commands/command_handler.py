@@ -5,6 +5,7 @@ from pydantic import BaseModel
 
 from myapp.domain.kernel import ToDoID
 from myapp.domain.task import TaskID, TaskCreationRequest
+from myapp.domain.title import Title
 from myapp.domain.todo import Category
 
 
@@ -30,3 +31,9 @@ class GetToDoList(Command):
 class CreateToDoList(Command):
     tasks: List[TaskCreationRequest]
     category: Category
+
+
+class UpdateTask(Command):
+    todo_id: ToDoID
+    task_id: TaskID
+    title: Title
