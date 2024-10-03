@@ -30,12 +30,9 @@ class ToDoRepository:
         return self._delete_tasks(todo)
 
     def _delete_tasks(self, todo: ToDoList) -> ToDoList:
-        stored_tasks = self.task_data_source.get(to_do_id=todo.id)
-        stored_tasks_id = {task.id for task in stored_tasks}
-        task_ids = {task.id for task in todo.tasks}
-        task_ids_to_delete = stored_tasks_id - task_ids
+        tasks_to_delete = todo.get_removed_tasks()
 
-        for task_id in task_ids_to_delete:
-            self.task_data_source.delete(task_id)
+        for task in tasks_to_delete:
+            self.task_data_source.delete(task_id=task.id)
 
         return todo
