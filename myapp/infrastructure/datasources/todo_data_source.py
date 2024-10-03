@@ -1,13 +1,12 @@
-import uuid
-
 from myapp.domain.exceptions import ToDoListNotFoundException
+from myapp.domain.kernel import ToDoID
 from myapp.domain.todo import ToDoList, ToDoListFactory
 from myapp.infrastructure.db.database import db_session
 from myapp.infrastructure.db.models import ToDoDB
 
 
 class ToDoDataSource:  # Improvement. Use DTOs instead of domain objects
-    def get(self, id: uuid.UUID) -> ToDoList:
+    def get(self, id: ToDoID) -> ToDoList:
         db = db_session.get()
         query = db.query(ToDoDB).filter(ToDoDB.id == id)
         todo = query.one_or_none()
