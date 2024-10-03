@@ -37,7 +37,10 @@ class ToDoTestCase(unittest.TestCase):
         task_id = 1
         task = TaskFactory.create(title="title", description="description", state="state", todo_id=1, id=task_id)
         todo.add_task(task=task)
+        updated_description = "updated description"
+        updated_title = Title("testing")
 
-        todo.update_task(task_id=task_id, title=Title("testing"))
+        todo.update_task(task_id=task_id, title=updated_title, description=updated_description)
 
-        self.assertEqual("testing", todo.tasks[0].title.root)
+        self.assertEqual(updated_title, todo.tasks[0].title)
+        self.assertEqual(updated_description, todo.tasks[0].description)

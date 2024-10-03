@@ -27,3 +27,11 @@ class TaskTestCase(unittest.TestCase):
         task.update_title(updated_title)
 
         self.assertEqual(updated_title, task.title)
+
+    def test_given_task_when_updating_description_then_it_is_updated(self):
+        task = TaskFactory.create(title="title", description="description", state="state", todo_id=1)
+        updated_description = "updated description"
+
+        task.update_description(updated_description)
+
+        self.assertEqual(updated_description, task.description)
