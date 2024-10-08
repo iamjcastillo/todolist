@@ -1,8 +1,7 @@
 # Use an official Python image from the slim-buster family
-FROM python:3.11-slim
+FROM python:3.12-slim
 
 # Set environment variables
-ENV POETRY_VERSION=1.8.0
 ENV POETRY_VIRTUALENVS_CREATE=false
 
 # Set working directory
