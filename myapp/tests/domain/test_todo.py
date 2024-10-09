@@ -5,7 +5,7 @@ from myapp.domain.title import Title
 from myapp.domain.todo import ToDoListFactory
 
 
-class ToDoTestCase(unittest.TestCase):
+class ToDoListTestCase(unittest.TestCase):
     def test_when_creating_todo_then_it_is_returned(self):
         todo = ToDoListFactory.create(category="test", tasks=[])
 
