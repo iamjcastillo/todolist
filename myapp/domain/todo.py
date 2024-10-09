@@ -13,8 +13,8 @@ class ToDoList(BaseModel):
     id: Optional[ToDoID]  # Improvement. Remove nullability
     tasks: List[Task]
     category: Category
-    _removed_tasks: List[Task] = []
-    _updated_tasks: List[Task] = []
+    __removed_tasks: List[Task] = []
+    __updated_tasks: List[Task] = []
 
     def add_task(self, task: Task):
         self.tasks.append(task)
@@ -23,11 +23,11 @@ class ToDoList(BaseModel):
         for task in self.tasks:
             if task.id == task_id:
                 self.tasks.remove(task)
-                self._removed_tasks.append(task)
+                self.__removed_tasks.append(task)
                 return
 
     def get_removed_tasks(self) -> List[Task]:
-        return self._removed_tasks
+        return self.__removed_tasks
 
     def get_task(self, task_id: TaskID):
         for task in self.tasks:
@@ -38,10 +38,10 @@ class ToDoList(BaseModel):
         task = self.get_task(task_id=task_id)
         task.update_title(title)
         task.update_description(description)
-        self._updated_tasks.append(task)
+        self.__updated_tasks.append(task)
 
     def get_updated_tasks(self) -> List[Task]:
-        return self._updated_tasks
+        return self.__updated_tasks
 
 
 class ToDoListFactory:
