@@ -38,3 +38,8 @@ class UpdateTask(Command):
     task_id: TaskID
     title: Title
     description: Description
+
+
+class CreateTask(Command):
+    todo_id: ToDoID
+    task: TaskCreationRequest
