@@ -33,7 +33,7 @@ async def health():
 @router.post("/lists", tags=["ToDo"])
 async def create_todo_list(todo: CreateToDoList, db: DBSessionDependency) -> ToDoList:
     db_session.set(db)
-    return ToDoService().execute(command=todo)
+    return ToDoService().execute(command=CreateToDoList.model_validate(todo.model_dump()))
 
 
 @router.get("/lists/{id}", tags=["ToDo"])
